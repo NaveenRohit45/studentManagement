@@ -18,6 +18,8 @@ sub homepage {
 	print "1.Add new Student\n";
 	print "2.Delete Student \n";
 	print "3.Search Student \n";
+	print "4.Show Student Details\n";
+	print "5.Update Student Details\n";
 	print "Press 0 to exit\n";
 }
 
@@ -47,15 +49,27 @@ sub processUserAction {
 	elsif ($userAction == 2) {
 		chomp($userAction);
 		header();
-		deleteUser();
+		deleteStudentName();
 	}
 		
 	elsif ($userAction == 3) {
 		chomp($userAction);
 		header();
-		searchUser();
+		searchStudentDetails();
 	}
 
+	elsif ($userAction == 4){
+		chomp($userAction);
+		header();
+		database::showDatabase();
+	}
+	
+	elsif ($userAction == 5) {
+		chomp($userAction);
+		header();
+		UpdateStudentDeails();
+	}		
+		
 	elsif ($userAction == 0) {
 		chomp($userAction);
 		header();
@@ -64,7 +78,7 @@ sub processUserAction {
 	}
 	
 	
-	elsif ($userAction => 5) {	
+	elsif ($userAction => 6) {	
 		print "invalid input\n";
 		print "######\n";
 		print "Please select right one\n";
@@ -89,6 +103,30 @@ sub addUser {
 	#database::creatingatabase();
 }
 
+sub searchStudentDetails{
+	print "Enter the Name to Find the Student Details: ";
+	$student_search_name = <STDIN>;
+	print "Searching.......\n";
+	sleep(1);
+	database::searchFromDatabase();
+}
+
+sub deleteStudentName{
+	header();
+	print "DELETE STUDENT Details\n\n";
+	print "Enter a Name to Delete :";
+	$delete_name = <STDIN>;
+	database::deleteFromDatabase($delete_name);
+}	
 
 
+sub UpdateStudentDeails{
+	header();
+	print "Update STUDENT Details\n\n";
+	print "Enter Student NAME :";
+	$student_name = <STDIN>;
+	print "Enter Update PhoneNumber :";
+	$Update_phone = <STDIN>;
+	database::updateDetails($student_name,$Update_phone);
+}	
 1;
