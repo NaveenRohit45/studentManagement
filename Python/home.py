@@ -1,6 +1,8 @@
-import menu
+#import menu
+from menu import *
 
-if __name__ == '__main__':
-    menu.homepage()
-    menu.header()
-    menu.process()
+obj = Menu(input, input, input, input, input, input)
+obj.header()
+obj.homepage()
+obj.process()
+

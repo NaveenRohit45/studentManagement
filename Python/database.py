@@ -1,51 +1,52 @@
 import sqlite3
 
 
-def connect_database():
-    conn = sqlite3.connect('DATABASE.db')
-    print("OPENED DATABASE SUCCESSFULLY\n")
-    return conn
+class Database:
+
+    def __init__(self):
+        self.conn = sqlite3.connect('DATABASE.db')
+
+    def connect_database(self):
+        print("OPENED DATABASE SUCCESSFULLY\n")
+        return self.conn
+
+    def creating_table(self):
+        self.conn = connect_database()
+        self.conn.execute('''CREATE TABLE IF NOT EXISTS STUDENT_DATABASE
+                 (NAME  TEXT    NOT NULL,
+                 AGE    INT     NOT NULL,
+                 PHONE  INT     NOT NULL);''')
+        print("Table Created Successfully...\n")
+
+    def insert_into_database(self):
+        self.conn = sqlite3.connect('DATABASE.db')
+        print(self.student_name, self.student_age, self.student_phone)
+        self.conn.execute("INSERT INTO STUDENT_DATABASE (NAME,AGE,PHONE) \
+            VALUES (?,?,?)", (self.student_name, self.student_age, self.student_phone))
+
+        self.conn.commit()
+        print("INSERT THE STUDENT DETAILS SUCCESSFULLY")
+
+    def delete_from_database(self, delete_name):
+        self.conn = sqlite3.connect('DATABASE.db')
+        self.conn.execute("DELETE FROM STUDENT_DATABASE WHERE NAME = ?", (self.delete_name,))
+        print("Student name has been deleted")
+        self.conn.commit()
+
+    def show_database(self):
+        self.conn = sqlite3.connect('DATABASE.db')
+        self.conn.execute("SELECT * FROM STUDENT_DATABASE")
+        output = self.conn.execute("SELECT * FROM STUDENT_DATABASE")
+        for row in output:
+            print(row)
+        self.conn.commit()
+
+    def search_from_database(self):
+        self.conn = connect_database()
+        self.conn.execute("SELECT * FROM STUDENT_DATABASE WHERE NAME = ?", (self.search_name,))
+        output = self.conn.execute("SELECT * FROM STUDENT_DATABASE WHERE NAME = ?", (self.search_name,))
+        print(output.fetchall())
+        self.conn.commit()
 
 
-def creating_table():
-    conn = connect_database()
-    conn.execute('''CREATE TABLE IF NOT EXISTS STUDENT_DATABASE
-             (NAME  TEXT    NOT NULL,
-             AGE    INT     NOT NULL,
-             PHONE  INT     NOT NULL);''')
-    print("Table Created Successfully...\n")
-    return conn
-
-
-def insert_into_database(student_name, student_age, student_phone):
-    conn = connect_database()
-    print(student_name, student_age, student_phone)
-    conn.execute("INSERT INTO STUDENT_DATABASE (NAME,AGE,PHONE) \
-        VALUES (?,?,?)", (student_name, student_age, student_phone))
-
-    conn.commit()
-    print("INSERT THE STUDENT DETAILS SUCCESSFULLY")
-
-
-def delete_from_database(delete_name):
-    conn = creating_table()
-    conn.execute("DELETE FROM STUDENT_DATABASE WHERE NAME = ?", (delete_name,))
-    print("Student name has been deleted")
-    conn.commit()
-
-
-def show_database():
-    conn = connect_database()
-    conn.execute("SELECT * FROM STUDENT_DATABASE")
-    output = conn.execute("SELECT * FROM STUDENT_DATABASE")
-    for row in output:
-        print(row)
-    conn.commit()
-
-
-def search_from_database(search_name):
-    conn = connect_database()
-    conn.execute("SELECT * FROM STUDENT_DATABASE WHERE NAME = ?", (search_name,))
-    output = conn.execute("SELECT * FROM STUDENT_DATABASE WHERE NAME = ?", (search_name,))
-    print(output.fetchall())
-    conn.commit()
+obj = Database()
