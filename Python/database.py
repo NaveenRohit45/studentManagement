@@ -11,25 +11,25 @@ class Database:
         return self.conn
 
     def creating_table(self):
-        self.conn = connect_database()
+        self.conn = sqlite3.connect('DATABASE.db')
         self.conn.execute('''CREATE TABLE IF NOT EXISTS STUDENT_DATABASE
                  (NAME  TEXT    NOT NULL,
                  AGE    INT     NOT NULL,
                  PHONE  INT     NOT NULL);''')
         print("Table Created Successfully...\n")
 
-    def insert_into_database(self):
+    def insert_into_database(self, student_name, student_age, student_phone):
         self.conn = sqlite3.connect('DATABASE.db')
-        print(self.student_name, self.student_age, self.student_phone)
+        print(student_name, student_age, student_phone)
         self.conn.execute("INSERT INTO STUDENT_DATABASE (NAME,AGE,PHONE) \
-            VALUES (?,?,?)", (self.student_name, self.student_age, self.student_phone))
+            VALUES (?,?,?)", (student_name, student_age, student_phone))
 
         self.conn.commit()
         print("INSERT THE STUDENT DETAILS SUCCESSFULLY")
 
     def delete_from_database(self, delete_name):
         self.conn = sqlite3.connect('DATABASE.db')
-        self.conn.execute("DELETE FROM STUDENT_DATABASE WHERE NAME = ?", (self.delete_name,))
+        self.conn.execute("DELETE FROM STUDENT_DATABASE WHERE NAME = ?", (delete_name,))
         print("Student name has been deleted")
         self.conn.commit()
 
@@ -41,10 +41,10 @@ class Database:
             print(row)
         self.conn.commit()
 
-    def search_from_database(self):
-        self.conn = connect_database()
-        self.conn.execute("SELECT * FROM STUDENT_DATABASE WHERE NAME = ?", (self.search_name,))
-        output = self.conn.execute("SELECT * FROM STUDENT_DATABASE WHERE NAME = ?", (self.search_name,))
+    def search_from_database(self, search_name):
+        self.conn = sqlite3.connect('DATABASE.db')
+        self.conn.execute("SELECT * FROM STUDENT_DATABASE WHERE NAME = ?", (search_name,))
+        output = self.conn.execute("SELECT * FROM STUDENT_DATABASE WHERE NAME = ?", (search_name,))
         print(output.fetchall())
         self.conn.commit()
 
