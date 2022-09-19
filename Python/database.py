@@ -49,4 +49,3 @@ class Database:
         self.conn.commit()
 
 
-obj = Database()

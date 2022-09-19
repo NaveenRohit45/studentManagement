@@ -1,5 +1,8 @@
 from database import Database
 
+from consolemenu import *
+from consolemenu.items import *
+
 
 class Menu:
 
@@ -9,8 +12,7 @@ class Menu:
         print('*****************')
 
     def homepage(self):
-        print('\n1.Add Student Name\n2.Delete Student Name\n3.Search Student Details\n4.Show All Details\n5.Update '
-              'Student Details\n0.exit')
+        print('\n1.Add Student Name\n2.Delete Student Name\n3.Search Student Details\n4.Update Student Details\n0.exit')
 
     def read_user_action(self):
         user_action = int(input('Enter your action:'))
@@ -61,3 +63,7 @@ class Menu:
 
 
 obj = Database()
+tmp = Menu()
+tmp.header()
+tmp.homepage()
+tmp.process()

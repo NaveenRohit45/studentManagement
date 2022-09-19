@@ -1,7 +1,5 @@
 # import menu
 from menu import *
 
-obj = Menu()
-obj.header()
-obj.homepage()
-obj.process()
+if __name__ == "__main__":
+    tmp = Menu()
